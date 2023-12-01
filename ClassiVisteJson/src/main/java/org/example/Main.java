@@ -1,5 +1,7 @@
 package org.example;
 import java.sql.*;
+import java.util.ArrayList;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
@@ -30,6 +32,36 @@ public class Main {
                         resultSet.getInt("AliquotaIVA"),
                         resultSet.getInt("Giacenza"),
                         (resultSet.getDouble("PrezzoUnitarioVendita") * (1 + resultSet.getInt("AliquotaIVA") / 100.0)));
+                colorSwitch = !colorSwitch;
+            }
+
+            ArrayList<Articolo> listaArticoli = new ArrayList<>();
+            resultSet = myStatement.executeQuery(StrSQL);
+            while(resultSet.next()){
+                Articolo NewArticolo = new Articolo(
+                        resultSet.getInt("ArticoloID"),
+                        resultSet.getString("Nome"),
+                        resultSet.getString("Descrizione"),
+                        resultSet.getDouble("PrezzoUnitarioVendita"),
+                        resultSet.getInt("AliquotaIVA"),
+                        resultSet.getInt("Giacenza")
+                );
+                listaArticoli.add(NewArticolo);
+            }
+            System.out.println("Sono pronto per stampare la lista");
+            System.out.printf("%-10s %-20s %-80s %20s %-15s %-15s %20s"+ANSI_RESET+"%n",
+                    "ArticoloID", "Nome", "Descrizione", "Prezzo Vendita", "Aliquota IVA", "Giacenza", "Prezzo IVA");
+            colorSwitch = false;
+            for (Articolo articolo : listaArticoli) {
+                String color = colorSwitch ? ANSI_RED : ANSI_GREEN;
+                System.out.printf(color + "%-10d %-20s %-80s %19.2f€ %14d%% %-15d %18.2f€"+ANSI_RESET+"%n",
+                        articolo.getArticoloID(),
+                        articolo.getNome(),
+                        articolo.getDescrizione(),
+                        articolo.getPrezzoUnitarioVendita(),
+                        articolo.getAliquotaIVA(),
+                        articolo.getGiacenza(),
+                        (articolo.getPrezzoUnitarioVendita() * (1 + articolo.getAliquotaIVA() / 100.0)));
                 colorSwitch = !colorSwitch;
             }
 
