@@ -24,9 +24,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
 
-        String token = "BxRU2XFhcldLKRauDndJ-8Gt-H6c_xmjUOcSCk_JMDv04wBc6g-EcXCOzBRTCTaNKi8g8_M1a7wKxrwC4f8k2A==";
-        String bucket = "test";
-        String org = "personal";
+        String token = "";
+        String bucket = "";
+        String org = "";
 
         InfluxDBClient client = InfluxDBClientFactory.create("https://eu-central-1-1.aws.cloud2.influxdata.com/", token.toCharArray());
 
