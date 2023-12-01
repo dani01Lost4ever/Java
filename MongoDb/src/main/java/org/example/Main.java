@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        String connectionString = "mongodb+srv://danielbusettodb:xfYYbHCs4eTFoOkJ@cluster0.u58z1in.mongodb.net/?retryWrites=true&w=majority";
+        String connectionString = "mongodb+srv://<name>:<password>@cluster0.u58z1in.mongodb.net/?retryWrites=true&w=majority";
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
