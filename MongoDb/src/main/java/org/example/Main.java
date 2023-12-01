@@ -6,6 +6,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+import java.text.DecimalFormat;
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         String connectionString = "mongodb+srv://danielbusettodb:xfYYbHCs4eTFoOkJ@cluster0.u58z1in.mongodb.net/?retryWrites=true&w=majority";
@@ -25,6 +28,21 @@ public class Main {
                 System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
                 MongoCollection<Document> collection = database.getCollection("shipwrecks");
                 collection.find().forEach(document -> System.out.println(document.toJson()));
+
+                Document shipwreck = new Document()
+                        .append("chart", "US,US,graph,1234")
+                        .append("latdec", 41.283333)
+                        .append("londec", -70.1)
+                        .append("gp_quality", 1)
+                        .append("depth", 18)
+                        .append("sounding_type", "fathoms")
+                        .append("history", "Sank in collision with SS CITY OF SALISBURY, October 18, 1884.")
+                        .append("quasou", "false")
+                        .append("watlev", "always dry")
+                        .append("coordinates", new Document("type", "Point")
+                                .append("coordinates", Arrays.asList(-70.1, 41.283333)));
+                collection.insertOne(shipwreck);
+
             } catch (MongoException e) {
                 e.getMessage();
             }
