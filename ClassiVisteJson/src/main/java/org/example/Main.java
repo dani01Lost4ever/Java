@@ -1,4 +1,11 @@
 package org.example;
+import com.google.gson.Gson;
+import com.mongodb.*;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -64,14 +71,18 @@ public class Main {
                         (articolo.getPrezzoUnitarioVendita() * (1 + articolo.getAliquotaIVA() / 100.0)));
                 colorSwitch = !colorSwitch;
             }
+            Gson myGson = new Gson();
+            String str= myGson.toJson(listaArticoli);
+            System.out.println(str);
+            myConnection.close();
 
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
             //e.printStackTrace();
         }
-        finally {
 
-        }
+
+
     }
 }
